@@ -51,7 +51,7 @@ if(count($argv) == 5) {
     }
 
     if($errorCheck != 2) echo "Error: stations niet overlopen\n";
-    else $myfile = file_put_contents('nmbs.csv', $text.PHP_EOL, FILE_APPEND);
+    else $myfile = file_put_contents('structural.csv', $text.PHP_EOL, FILE_APPEND);
 } else {
     echo "Error: geef 4 argumenten\n";
 }
