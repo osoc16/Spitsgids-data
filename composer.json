@@ -1,0 +1,14 @@
+{
+  "name": "oSoc16/Spitsgids-data",
+  "description": "The data for Spitsgids which will be published on iRail",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stan Callewaert",
+      "email": "callewaert.stan@gmail.com"
+    }
+  ],
+  "require": {
+    "mongodb/mongodb": "^1.0"
+  }
+}

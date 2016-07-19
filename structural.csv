@@ -1,4 +1,4 @@
-trainnumber,occupancy,weekday,from,to
+vehicle,occupancy,weekday,from,to
 IC506,2,1,http://irail.be/stations/NMBS/008892007,http://irail.be/stations/NMBS/008814001
 
 IC515,2,1,http://irail.be/stations/NMBS/008812005,http://irail.be/stations/NMBS/008833001
