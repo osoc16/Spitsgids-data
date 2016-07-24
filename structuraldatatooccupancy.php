@@ -3,9 +3,14 @@
 include_once 'vendor/autoload.php';
 use MongoDB\Collection as Collection;
 
-$m = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-$structural = new Collection($m, 'spitsgids', 'structural');
-$occupancy = new MongoDB\Collection($m, 'spitsgids', 'occupancy');
+$dotenv = new Dotenv\Dotenv(dirname(__DIR__));
+$dotenv->load();
+$mongodb_url = getenv('MONGODB_URL');
+$mongodb_db = getenv('MONGODB_DB');
+
+$m = new MongoDB\Driver\Manager($mongodb_url);
+$structural = new Collection($m, $mongodb_db, 'structural');
+$occupancy = new MongoDB\Collection($m, $mongodb_db, 'occupancy');
 
 date_default_timezone_set('Europe/Brussels');
 $dayOfTheWeek = date('N');
@@ -38,10 +43,10 @@ foreach ($structuralData as $structuralElement) {
     }
 
     $date = date('Ymd\T', strtotime(date() . ' + ' . $extra . ' days')) . $time;
-    $id = substr(basename($structuralElement->from), 2) . "-" . $date . "-" . $structuralElement->vehicle;
+    $connectionid = 'http://irail.be/connections/'.substr(basename($structuralElement->from), 2)."/".$date."/".$structuralElement->vehicle;
 
     $structuralToOccupancy = array(
-        'id' => $id,
+        'connection' => $connectionid,
         'vehicle' => $structuralElement->vehicle,
         'from' => $structuralElement->from,
         'date' => $date,
