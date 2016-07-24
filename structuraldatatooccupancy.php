@@ -18,14 +18,32 @@ if($dayOfTheWeek == 5 || $dayOfTheWeek == 6) {
 $structuralData = $structural->find(array('weekday' => $isWeekday));
 
 foreach ($structuralData as $structuralElement) {
-    $date = date('Ymd', strtotime(date(). ' + 1 days'));
-    $id = $structuralElement->vehicle . "-" . $date . "-" . basename($structuralElement->from);
+    $extra = 1;
+    $time = $structuralElement->time;
+
+    if ($time >= 1000) {
+        $time = $time;
+    } elseif ($time >= 100) {
+        if($time < 400) {
+            $extra = $extra + 1;
+        }
+
+        $time = "0" . $time;
+    } elseif ($time >= 10) {
+        $extra = $extra + 1;
+        $time = "00" . $time;
+    } else {
+        $extra = $extra + 1;
+        $time = "000" . $time;
+    }
+
+    $date = date('Ymd\T', strtotime(date() . ' + ' . $extra . ' days')) . $time;
+    $id = substr(basename($structuralElement->from), 2) . "-" . $date . "-" . $structuralElement->vehicle;
 
     $structuralToOccupancy = array(
         'id' => $id,
         'vehicle' => $structuralElement->vehicle,
         'from' => $structuralElement->from,
-        'to' => $structuralElement->to,
         'date' => $date,
         'structural' => $structuralElement->occupancy,
         'occupancy' => $structuralElement->occupancy
