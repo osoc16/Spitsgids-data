@@ -42,7 +42,8 @@ foreach ($structuralData as $structuralElement) {
         $time = "000" . $time;
     }
 
-    $date = date('Ymd\T', strtotime(date() . ' + ' . $extra . ' days')) . $time;
+    $date = date('Ymd\T', strtotime(date() . ' + ' . $extra . ' days'));
+    $time = $date . $time;
     $connectionid = 'http://irail.be/connections/'.substr(basename($structuralElement->from), 2)."/".$date."/".$structuralElement->vehicle;
 
     $structuralToOccupancy = array(
@@ -50,6 +51,7 @@ foreach ($structuralData as $structuralElement) {
         'vehicle' => $structuralElement->vehicle,
         'from' => $structuralElement->from,
         'date' => $date,
+        'time' => $time,
         'structural' => $structuralElement->occupancy,
         'occupancy' => $structuralElement->occupancy
     );
